@@ -3,11 +3,12 @@
 #include <cstdio>
 #include <stack>
 #include <string>
+#include <cmath>
 #include "calculator.h"
 #include "generic.h"
 
 //public
-const char calculator::OPERATORS[] = {'x','/','+','-','='};
+const char calculator::OPERATORS[] = {'*','x','/','+','-','^'};
 void calculator::printHelp()
 {
     std::cout << "Operators: \n";
@@ -15,17 +16,16 @@ void calculator::printHelp()
     {
         std::printf("\t%c",OPERATORS[i]);
     }
-    std::cout << "\n";
+    std::cout << "\nx multiplies two numbers\n / divides the first number by the second\n + sums two numbers\n - substracs the second number from the fist number\n ^ elevates the first number to the second number's power\n";
 }
 bool calculator::isValidOperator(char *c)
 {
     int i =0;
-    while(*c != OPERATORS[i] && i < generic:size((OPERATORS))
+    while(*c != OPERATORS[i] && i < generic::size((OPERATORS)))
     {
         i++;
     }
-    
-    return (i> generic::size(OPERATORS))
+    return (i < generic::size(OPERATORS));
 }
 //­­­­­­­TOO CONFUSING FOR NEW PLAYERS­­­­­­­--­
 //takes a pointer to a stack and fills it with an 
@@ -74,9 +74,10 @@ long calculator::evaluate(char** val1,char** val2,char** oper)
 {
     switch(*oper[0])
     {
-        case('*'):
+        case('^'):
+            return std::pow(std::stod(*val1),std::stod(*val2));
         case('x'):
-            return std::stod(*val1)*std::stod(*val2);
+            return std::stod(*val1) * std::stod(*val2);
         case('/'):
             if(val2 !=0)
             {
