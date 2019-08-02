@@ -4,8 +4,13 @@
 
 int main(int argc, char* argv[] )
 {
-    calculator::printHelp();
-
-    std::printf("%ld",calculator::compute(argv,&argc));
+    if(argc < 4)
+    {
+        calculator::printHelp();
+    }
+    else
+    {
+        std::printf("%ld",calculator::compute(argv,&argc));
+    }
     return 0;
 }

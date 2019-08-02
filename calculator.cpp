@@ -8,15 +8,17 @@
 #include "generic.h"
 
 //public
-const char calculator::OPERATORS[] = {'*','x','/','+','-','^'};
+const char calculator::OPERATORS[] = {'x','/','+','-','^'};
 void calculator::printHelp()
 {
-    std::cout << "Operators: \n";
+    std::cout << "\t\033[1;31mTHIS CALCULATOR ONLY SUPPORTS INTEGERS\033[0m\n";
+    
+    std::cout << "Operators: \n\t    ";
     for(int i =0; i< generic::size(OPERATORS);i++)
     {
-        std::printf("\t%c",OPERATORS[i]);
+        std::printf("%c\t",OPERATORS[i]);
     }
-    std::cout << "\nx multiplies two numbers\n / divides the first number by the second\n + sums two numbers\n - substracs the second number from the fist number\n ^ elevates the first number to the second number's power\n";
+    std::cout << "\n  x multiplies two numbers\n  / divides the first number by the second\n  + sums two numbers\n  - substracs the second number from the fist number\n  ^ raises the first number to the second number's power\n";
 }
 bool calculator::isValidOperator(char *c)
 {
@@ -79,9 +81,9 @@ long calculator::evaluate(char** val1,char** val2,char** oper)
         case('x'):
             return std::stod(*val1) * std::stod(*val2);
         case('/'):
-            if(val2 !=0)
+            if(val1 !=0)
             {
-                return std::stod(*val1) / std::stod(*val2);
+                return std::stod(*val2) / std::stod(*val1);
             }
             throw std::runtime_error("division by 0");
         case('+'):
