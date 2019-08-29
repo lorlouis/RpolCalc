@@ -15,8 +15,8 @@ class calculator
     
     static bool isValidExpression(char* arguments[], int *numberOfArguments);
 
-    static long evaluate(char** val1,char** val2,char** oper);
+    static double evaluate(char** val1,char** val2,char** oper);
     
-    static long compute(char* arguments[],int *numberOfArguments);
+    static double compute(char* arguments[],int *numberOfArguments);
 };
 #endif

@@ -7,7 +7,7 @@
 #include "calculator.h"
 #include "generic.h"
 
-//public
+
 const char calculator::OPERATORS[] = {'x','/','+','-','^'};
 void calculator::printHelp()
 {
@@ -72,7 +72,7 @@ bool calculator::isValidExpression(char* arguments[], int *numberOfArguments)
     return true;
 }
 
-long calculator::evaluate(char** val1,char** val2,char** oper)
+double calculator::evaluate(char** val1,char** val2,char** oper)
 {
     switch(*oper[0])
     {
@@ -96,7 +96,7 @@ long calculator::evaluate(char** val1,char** val2,char** oper)
 }
 
 //calculates the values
-long calculator::compute(char* arguments[],int *numberOfArguments)
+double calculator::compute(char* arguments[],int *numberOfArguments)
 {
     std::stack <char*> workingStack;
     std::stack <char*> bufferStack;
@@ -138,7 +138,7 @@ long calculator::compute(char* arguments[],int *numberOfArguments)
                     }
                     else
                     {    
-                        int ret = std::snprintf(buffer,sizeof(buffer),"%ld",calculator::evaluate(&val1,&val2,&oper));
+                        int ret = std::snprintf(buffer,sizeof(buffer),"%f",calculator::evaluate(&val1,&val2,&oper));
                         bufferStack.push(buffer);
                         //unwinding the working stack
                         while(!workingStack.empty())

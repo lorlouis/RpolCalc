@@ -10,7 +10,7 @@ int main(int argc, char* argv[] )
     }
     else
     {
-        std::printf("%ld",calculator::compute(argv,&argc));
+        std::printf("%f\n",calculator::compute(argv,&argc));
     }
     return 0;
 }
