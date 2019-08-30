@@ -4,7 +4,7 @@
 class calculator
 {
     public:
-    const static char OPERATORS[];
+    const static char* OPERATORS[];
     
     static void printHelp();
     

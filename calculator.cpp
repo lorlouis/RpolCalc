@@ -8,7 +8,7 @@
 #include "generic.h"
 
 
-const char calculator::OPERATORS[] = {'x','/','+','-','^'};
+const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","root"};
 void calculator::printHelp()
 {
     std::cout << "\t\033[1;31mTHIS CALCULATOR ONLY SUPPORTS INTEGERS\033[0m\n";
@@ -20,10 +20,10 @@ void calculator::printHelp()
     }
     std::cout << "\n  x multiplies two numbers\n  / divides the first number by the second\n  + sums two numbers\n  - substracs the second number from the fist number\n  ^ raises the first number to the second number's power\n";
 }
-bool calculator::isValidOperator(char *c)
+bool calculator::isValidOperator(char* c)
 {
     int i =0;
-    while(*c != OPERATORS[i] && i < generic::size((OPERATORS)))
+    while(std::strcmp(c,OPERATORS[i]) != 0 && i < generic::size((OPERATORS)))
     {
         i++;
     }
@@ -74,24 +74,38 @@ bool calculator::isValidExpression(char* arguments[], int *numberOfArguments)
 
 double calculator::evaluate(char** val1,char** val2,char** oper)
 {
-    switch(*oper[0])
+    if(strcmp(*oper,"pow") == 0)
     {
-        case('^'):
-            return std::pow(std::stod(*val1),std::stod(*val2));
-        case('x'):
-            return std::stod(*val1) * std::stod(*val2);
-        case('/'):
-            if(val1 !=0)
-            {
-                return std::stod(*val2) / std::stod(*val1);
-            }
-            throw std::runtime_error("division by 0");
-        case('+'):
-            return std::stod(*val1) + std::stod(*val2);
-        case('-'):
-            return std::stod(*val2) - std::stod(*val1);
-        default:
-            throw std::runtime_error("invalid operator");
+        return std::pow(std::stod(*val1),std::stod(*val2));
+    }
+    else if(strcmp(*oper,"root") == 0)
+    {
+        return std::pow(std::stod(*val1),1.0f/std::stod(*val2));
+    }
+    //all of the single character operators will be handled in a switch 
+    //for the sake of performance and code readability.
+    else
+    {
+        switch(*oper[0])
+        {
+            case('^'):
+                return std::pow(std::stod(*val1),std::stod(*val2));
+            case('*'):
+            case('x'):
+                return std::stod(*val1) * std::stod(*val2);
+            case('/'):
+                if(val1 !=0)
+                {
+                    return std::stod(*val2) / std::stod(*val1);
+                }
+                throw std::runtime_error("division by 0");
+            case('+'):
+                return std::stod(*val1) + std::stod(*val2);
+            case('-'):
+                return std::stod(*val2) - std::stod(*val1);
+            default:
+                throw std::runtime_error("invalid operator");
+        }
     }
 }
 
