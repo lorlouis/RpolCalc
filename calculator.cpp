@@ -8,26 +8,30 @@
 #include "generic.h"
 
 
-const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","root"};
+const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","nroot"};
+const int OPERATORS_LN = 8;//Don't forget to update when adding functionnalities
+const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos"};
+const int SINGLE_ARGUMENT_OPERATORS_LN = 1;//Don't forget to update when adding functionnalities
 void calculator::printHelp()
 {
     std::cout << "\t\033[1;31mTHIS CALCULATOR ONLY SUPPORTS INTEGERS\033[0m\n";
     
     std::cout << "Operators: \n\t    ";
-    for(int i =0; i< generic::size(OPERATORS);i++)
+    for(int i =0; i< OPERATORS_LN;i++)
     {
         std::printf("%c\t",OPERATORS[i]);
     }
     std::cout << "\n  x multiplies two numbers\n  / divides the first number by the second\n  + sums two numbers\n  - substracs the second number from the fist number\n  ^ raises the first number to the second number's power\n";
 }
-bool calculator::isValidOperator(char* c)
+
+bool calculator::isValidOperator(char* c,const char* ref[], const int ln)
 {
     int i =0;
-    while(std::strcmp(c,OPERATORS[i]) != 0 && i < generic::size((OPERATORS)))
+    while(std::strcmp(c,ref[i]) != 0 && i < ln)
     {
         i++;
     }
-    return (i < generic::size(OPERATORS));
+    return (i < ln);
 }
 //­­­­­­­TOO CONFUSING FOR NEW PLAYERS­­­­­­­--­
 //takes a pointer to a stack and fills it with an 
@@ -50,10 +54,10 @@ bool calculator::isValidExpression(char* arguments[], int *numberOfArguments)
     int nbNum=0;
     int nbOp = 0;
     int i = 1;
-    while((calculator::isValidOperator(arguments[i]) || 
+    while((calculator::isValidOperator(arguments[i],OPERATORS,OPERATORS_LN) || 
           generic::isNumber(arguments[i])) && i < *numberOfArguments)
     {
-        if(calculator::isValidOperator(arguments[i]))
+        if(calculator::isValidOperator(arguments[i],OPERATORS,OPERATORS_LN))
         {
             nbOp++;
         }
@@ -63,13 +67,23 @@ bool calculator::isValidExpression(char* arguments[], int *numberOfArguments)
         }
         i++;
     }
-
-    std::printf("%i op\t%i num\n",nbOp,nbNum);
     if(i!= *numberOfArguments || nbOp != nbNum-1)
     {
         return false;
     }
     return true;
+}
+
+double calculator::evaluateSingleValueExpression(char** val,char** oper)
+{
+    if(strcmp(*oper, "cos") ==0)
+    {
+        return std::cos(std::stod(*val));
+    }
+    else
+    {
+        throw std::runtime_error("invalid operator");
+    }
 }
 
 double calculator::evaluate(char** val1,char** val2,char** oper)
@@ -78,7 +92,7 @@ double calculator::evaluate(char** val1,char** val2,char** oper)
     {
         return std::pow(std::stod(*val1),std::stod(*val2));
     }
-    else if(strcmp(*oper,"root") == 0)
+    else if(strcmp(*oper,"nroot") == 0)
     {
         return std::pow(std::stod(*val1),1.0f/std::stod(*val2));
     }
@@ -118,7 +132,7 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
     for(i=1;i < *numberOfArguments;i++)
     {
 
-        if(calculator::isValidOperator(arguments[i])||generic::isNumber(arguments[i]))
+        if(calculator::isValidOperator(arguments[i], OPERATORS,OPERATORS_LN)||generic::isNumber(arguments[i]))
         {
             bufferStack.push(arguments[i]);
         }
@@ -128,12 +142,7 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
         char* oper = {};
         char* val1 = {};
         char* val2 = {};
-        if(!calculator::isValidOperator(bufferStack.top()))
-        {
-            workingStack.push(bufferStack.top());
-            bufferStack.pop();
-        }
-        else
+        if(calculator::isValidOperator(bufferStack.top(), OPERATORS,OPERATORS_LN))
         {
             oper = bufferStack.top();
             bufferStack.pop();
@@ -173,6 +182,11 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
                 workingStack.push(oper);
             }
             
+        }
+        else
+        {
+            workingStack.push(bufferStack.top());
+            bufferStack.pop();
         }
     }
     throw std::runtime_error("Syntax error"); 

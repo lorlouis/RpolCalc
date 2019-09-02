@@ -5,12 +5,6 @@ class generic
 { 
     public:
         static bool isNumber(char* s);
-        static int toNumber(char* s);
-        
-        template<typename T, int sz>
-        static int size(T(&)[sz])
-        {
-            return sz;
-        }
+        static int toNumber(char* s);        
 };
 #endif
