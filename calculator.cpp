@@ -131,8 +131,7 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
     int i =1;
     for(i=1;i < *numberOfArguments;i++)
     {
-
-        if(calculator::isValidOperator(arguments[i], OPERATORS,OPERATORS_LN)||generic::isNumber(arguments[i]))
+        if(calculator::isValidOperator(arguments[i], OPERATORS,OPERATORS_LN)||generic::isNumber(arguments[i])||calculator::isValidOperator(arguments[i],SINGLE_ARGUMENT_OPERATORS,SINGLE_ARGUMENT_OPERATORS_LN))
         {
             bufferStack.push(arguments[i]);
         }
@@ -142,7 +141,7 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
         char* oper = {};
         char* val1 = {};
         char* val2 = {};
-        if(calculator::isValidOperator(bufferStack.top(), OPERATORS,OPERATORS_LN))
+        if(calculator::isValidOperator(bufferStack.top(),SINGLE_ARGUMENT_OPERATORS,SINGLE_ARGUMENT_OPERATORS_LN))
         {
             oper = bufferStack.top();
             bufferStack.pop();
@@ -150,7 +149,40 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
             {
                 val1 = bufferStack.top();
                 bufferStack.pop();
-                if(generic::isNumber(bufferStack.top()))
+                char buffer[100];
+                if(bufferStack.empty() && workingStack.empty())
+                {
+                    std::cout << calculator::evaluateSingleValueExpression(&val1,&oper) << "\n";
+
+                    return calculator::evaluateSingleValueExpression(&val1,&oper);
+                }
+                else
+                {
+                    int ret = std::snprintf(buffer,sizeof(buffer),"%f",calculator::evaluateSingleValueExpression(&val1,&oper));
+                    bufferStack.push(buffer);
+                    //unwinding the working stack
+                    while(!workingStack.empty())
+                    {
+                        bufferStack.push(workingStack.top());
+                        workingStack.pop();
+                    }
+                }
+            }
+            else
+            { 
+                bufferStack.push(oper);
+            }
+        }
+        if(!bufferStack.empty() && calculator::isValidOperator(bufferStack.top(), OPERATORS,OPERATORS_LN-1))
+        {
+            std::cout << "world\n";
+            oper = bufferStack.top();
+            bufferStack.pop();
+            if(generic::isNumber(bufferStack.top()))
+            {
+                val1 = bufferStack.top();
+                bufferStack.pop();
+                if(!bufferStack.empty() && generic::isNumber(bufferStack.top()))
                 {
                     val2 = bufferStack.top();
                     bufferStack.pop();
@@ -173,8 +205,8 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
                 }
                 else
                 {
-                    workingStack.push(oper);
                     workingStack.push(val1);
+                    workingStack.push(oper);
                 }
             }
             else
