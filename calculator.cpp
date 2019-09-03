@@ -8,10 +8,10 @@
 #include "generic.h"
 
 
-const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","nroot"};
-const int OPERATORS_LN = 8;//Don't forget to update when adding functionnalities
-const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos"};
-const int SINGLE_ARGUMENT_OPERATORS_LN = 1;//Don't forget to update when adding functionnalities
+const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","nroot","atan2"};
+const int OPERATORS_LN = 9;//Don't forget to update when adding functionnalities
+const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos","sin","tan","acos","asin","atan","cosh","sinh","tanh","acosh","asinh","atanh"};
+const int SINGLE_ARGUMENT_OPERATORS_LN = 12;//Don't forget to update when adding functionnalities
 void calculator::printHelp()
 {
     std::cout << "\t\033[1;31mTHIS CALCULATOR ONLY SUPPORTS INTEGERS\033[0m\n";
@@ -27,13 +27,13 @@ void calculator::printHelp()
 bool calculator::isValidOperator(char* c,const char* ref[], const int ln)
 {
     int i =0;
-    while(std::strcmp(c,ref[i]) != 0 && i < ln)
+    while(i < ln && std::strcmp(c,ref[i]) != 0)
     {
         i++;
     }
     return (i < ln);
 }
-//­­­­­­­TOO CONFUSING FOR NEW PLAYERS­­­­­­­--­
+//-------TOO CONFUSING FOR NEW PLAYERS-----------­
 //takes a pointer to a stack and fills it with an 
 //element from an array if the function pointer 
 //returns true when supplied with said element
@@ -80,6 +80,50 @@ double calculator::evaluateSingleValueExpression(char** val,char** oper)
     {
         return std::cos(std::stod(*val));
     }
+    else if(strcmp(*oper, "sin") == 0)
+    {
+        return std::sin(std::stod(*val));
+    }
+    else if(strcmp(*oper, "tan") == 0)
+    {
+        return std::tan(std::stod(*val));
+    }
+    else if(strcmp(*oper, "acos") == 0)
+    {
+        return std::acos(std::stod(*val));
+    }
+    else if(strcmp(*oper, "asin") == 0)
+    {
+        return std::asin(std::stod(*val));
+    }
+    else if(strcmp(*oper, "atan") == 0)
+    {
+        return std::atan(std::stod(*val));
+    }
+    else if(strcmp(*oper, "cosh") == 0)
+    {
+        return std::cosh(std::stod(*val));
+    }
+    else if(strcmp(*oper, "sinh") == 0)
+    {
+        return std::sinh(std::stod(*val));
+    }
+    else if(strcmp(*oper, "tanh") == 0)
+    {
+        return std::tanh(std::stod(*val));
+    }
+    else if(strcmp(*oper, "acosh") == 0)
+    {
+        return std::acosh(std::stod(*val));
+    }
+    else if(strcmp(*oper, "asinh") == 0)
+    {
+        return std::asinh(std::stod(*val));
+    }
+    else if(strcmp(*oper, "atanh") == 0)
+    {
+        return std::atanh(std::stod(*val));
+    }
     else
     {
         throw std::runtime_error("invalid operator");
@@ -95,6 +139,10 @@ double calculator::evaluate(char** val1,char** val2,char** oper)
     else if(strcmp(*oper,"nroot") == 0)
     {
         return std::pow(std::stod(*val1),1.0f/std::stod(*val2));
+    }
+    else if(strcmp(*oper,"atan2") == 0)
+    {
+        return std::atan2(std::stod(*val1),1.0f/std::stod(*val2));
     }
     //all of the single character operators will be handled in a switch 
     //for the sake of performance and code readability.
@@ -152,8 +200,6 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
                 char buffer[100];
                 if(bufferStack.empty() && workingStack.empty())
                 {
-                    std::cout << calculator::evaluateSingleValueExpression(&val1,&oper) << "\n";
-
                     return calculator::evaluateSingleValueExpression(&val1,&oper);
                 }
                 else
@@ -173,9 +219,8 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
                 bufferStack.push(oper);
             }
         }
-        if(!bufferStack.empty() && calculator::isValidOperator(bufferStack.top(), OPERATORS,OPERATORS_LN-1))
+        if(!bufferStack.empty() && calculator::isValidOperator(bufferStack.top(), OPERATORS,OPERATORS_LN))
         {
-            std::cout << "world\n";
             oper = bufferStack.top();
             bufferStack.pop();
             if(generic::isNumber(bufferStack.top()))
