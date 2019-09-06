@@ -10,8 +10,8 @@
 
 const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","nroot","atan2"};
 const int OPERATORS_LN = 9;//Don't forget to update when adding functionnalities
-const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos","sin","tan","acos","asin","atan","cosh","sinh","tanh","acosh","asinh","atanh"};
-const int SINGLE_ARGUMENT_OPERATORS_LN = 12;//Don't forget to update when adding functionnalities
+const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos","sin","tan","acos","asin","atan","cosh","sinh","tanh","acosh","asinh","atanh","exp"};
+const int SINGLE_ARGUMENT_OPERATORS_LN = 13;//Don't forget to update when adding functionnalities
 void calculator::printHelp()
 {
     std::cout << "\t\033[1;31mTHIS CALCULATOR ONLY SUPPORTS INTEGERS\033[0m\n";
@@ -123,6 +123,10 @@ double calculator::evaluateSingleValueExpression(char** val,char** oper)
     else if(strcmp(*oper, "atanh") == 0)
     {
         return std::atanh(std::stod(*val));
+    }
+    else if(strcmp(*oper, "exp") == 0)
+    {
+        return std::exp(std::stod(*val));
     }
     else
     {
