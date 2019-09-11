@@ -14,16 +14,48 @@ const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos","sin","tan","acos",
 const int SINGLE_ARGUMENT_OPERATORS_LN = 13;//Don't forget to update when adding functionnalities
 void calculator::printHelp()
 {
-    std::cout << "\t\033[1;31mTHIS CALCULATOR ONLY SUPPORTS INTEGERS\033[0m\n";
-    
     std::cout << "Operators: \n\t    ";
     for(int i =0; i< OPERATORS_LN;i++)
     {
-        std::printf("%c\t",OPERATORS[i]);
+        std::printf("%s\t",OPERATORS[i]);
     }
-    std::cout << "\n  x multiplies two numbers\n  / divides the first number by the second\n  + sums two numbers\n  - substracs the second number from the fist number\n  ^ raises the first number to the second number's power\n";
 }
-
+void calculator::printOperatorHelp(char* c)
+{
+    int i =0;
+    printf("Operator usage:\n");
+    while(i < OPERATORS_LN && std::strcmp(c,OPERATORS[i]) != 0)
+    {
+        i++;
+    }
+    if(i < OPERATORS_LN)
+    {
+        printf("arg1 arg2 %s",OPERATORS[i]);
+    }
+    else
+    {
+        i =0;
+        while(i < SINGLE_ARGUMENT_OPERATORS_LN && std::strcmp(c,SINGLE_ARGUMENT_OPERATORS[i]) != 0)
+        {
+            i++;
+        }
+        if(i < SINGLE_ARGUMENT_OPERATORS_LN)
+        {
+            printf("%s",SINGLE_ARGUMENT_OPERATORS[i]);
+        }
+        else
+        {
+            for(int i=0;i<OPERATORS_LN;i++)
+            {
+                printf("%s\n",OPERATORS[i]);
+            }
+            for(int i=0;i<SINGLE_ARGUMENT_OPERATORS_LN;i++)
+            {
+                printf("arg %s\n",SINGLE_ARGUMENT_OPERATORS[i]);
+            }
+        }
+    }
+}
 bool calculator::isValidOperator(char* c,const char* ref[], const int ln)
 {
     int i =0;
@@ -35,9 +67,9 @@ bool calculator::isValidOperator(char* c,const char* ref[], const int ln)
 }
 //-------TOO CONFUSING FOR NEW PLAYERS-----------­
 //takes a pointer to a stack and fills it with an 
-//element from an array if the function pointer 
-//returns true when supplied with said element
-//        and does it recursively
+// element from an array if the function pointer 
+// returns true when supplied with said element
+//           and does it recursively
 template <typename T>
 void calculator::fillstacks(std::stack <T>* st,char* arguments[], int *numberOfArguments, bool (*function)(T))
 {

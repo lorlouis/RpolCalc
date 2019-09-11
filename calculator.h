@@ -8,6 +8,8 @@ class calculator
     const static char* SINGLE_ARGUMENT_OPERATORS[];
     
     static void printHelp();
+
+    static void printOperatorHelp(char* c);
     
     static bool isValidOperator(char*c,const char* ref[], const int ln);
     
