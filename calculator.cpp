@@ -10,8 +10,10 @@
 
 const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","nroot","atan2"};
 const int OPERATORS_LN = 9;//Don't forget to update when adding functionnalities
+const char* OPERATORS_HELP[] = {"a b x : times a by b","a b * : times a by b","a b / : divides a by b, b != 0","a b + : adds a and b", "a b - : substracts a from b","a b ^ : raises a to the power of b", " a b pow : raises a to the power of b","a b nroot : returns the bth root of a", "a b atan2 : returns θ between a ray starting at 0,0 and a,b\n|   *(a,b)\n|  / \n| /\\θ\n|/__\\__"};
 const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos","sin","tan","acos","asin","atan","cosh","sinh","tanh","acosh","asinh","atanh","exp"};
 const int SINGLE_ARGUMENT_OPERATORS_LN = 13;//Don't forget to update when adding functionnalities
+
 void calculator::printHelp()
 {
     std::cout << "Operators: \n\t    ";
@@ -30,7 +32,7 @@ void calculator::printOperatorHelp(char* c)
     }
     if(i < OPERATORS_LN)
     {
-        printf("arg1 arg2 %s",OPERATORS[i]);
+        printf("%s\n",OPERATORS_HELP[i]);
     }
     else
     {
@@ -170,11 +172,11 @@ double calculator::evaluate(char** val1,char** val2,char** oper)
 {
     if(strcmp(*oper,"pow") == 0)
     {
-        return std::pow(std::stod(*val1),std::stod(*val2));
+        return std::pow(std::stod(*val2),std::stod(*val1));
     }
     else if(strcmp(*oper,"nroot") == 0)
     {
-        return std::pow(std::stod(*val1),1.0f/std::stod(*val2));
+        return std::pow(std::stod(*val2),1.0f/std::stod(*val1));
     }
     else if(strcmp(*oper,"atan2") == 0)
     {
@@ -187,7 +189,7 @@ double calculator::evaluate(char** val1,char** val2,char** oper)
         switch(*oper[0])
         {
             case('^'):
-                return std::pow(std::stod(*val1),std::stod(*val2));
+                return std::pow(std::stod(*val2),std::stod(*val1));
             case('*'):
             case('x'):
                 return std::stod(*val1) * std::stod(*val2);
