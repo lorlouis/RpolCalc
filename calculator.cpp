@@ -44,7 +44,7 @@ void calculator::printOperatorHelp(char* c)
         }
         if(i < SINGLE_ARGUMENT_OPERATORS_LN)
         {
-            printf("%s",SINGLE_ARGUMENT_OPERATORS[i]);
+            printf("%s",SINGLE_ARGUMENT_OPERATORS_HELP[i]);
         }
         else
         {
@@ -54,7 +54,7 @@ void calculator::printOperatorHelp(char* c)
             }
             for(int i=0;i<SINGLE_ARGUMENT_OPERATORS_LN;i++)
             {
-                printf("arg %s\n",SINGLE_ARGUMENT_OPERATORS[i]);
+                printf("%s\n",SINGLE_ARGUMENT_OPERATORS[i]);
             }
         }
     }
