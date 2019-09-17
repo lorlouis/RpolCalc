@@ -284,7 +284,7 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
                 }
                 else
                 {
-                    int ret = std::snprintf(buffer,sizeof(buffer),"%f",calculator::evaluateSingleValueExpression(&val1,&oper));
+                    std::snprintf(buffer,sizeof(buffer),"%f",calculator::evaluateSingleValueExpression(&val1,&oper));
                     bufferStack.push(buffer);
                     //unwinding the working stack
                     while(!workingStack.empty())
@@ -318,7 +318,7 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
                     }
                     else
                     {    
-                        int ret = std::snprintf(buffer,sizeof(buffer),"%f",calculator::evaluate(&val1,&val2,&oper));
+                        std::snprintf(buffer,sizeof(buffer),"%f",calculator::evaluate(&val1,&val2,&oper));
                         bufferStack.push(buffer);
                         //unwinding the working stack
                         while(!workingStack.empty())
@@ -330,8 +330,8 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
                 }
                 else
                 {
-                    workingStack.push(val1);
                     workingStack.push(oper);
+                    workingStack.push(val1);
                 }
             }
             else
@@ -346,5 +346,6 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
             bufferStack.pop();
         }
     }
-    throw std::runtime_error("Syntax error"); 
+    return 0;
+    //throw std::runtime_error("Syntax error"); 
 }
