@@ -1,0 +1,31 @@
+OBJS	= main.o calculator.o generic.o
+SOURCE	= main.cpp calculator.cpp generic.cpp
+HEADER	= calculator.h generic.h
+OUT	= rpolcalc
+CC	 = g++
+FLAGS	 = -g -c -Wall
+LFLAGS	 = -lm
+PREFIX = /usr/local
+
+all: $(OBJS)
+	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS)
+
+main.o: main.cpp
+	$(CC) $(FLAGS) main.cpp 
+
+calculator.o: calculator.cpp
+	$(CC) $(FLAGS) calculator.cpp 
+
+generic.o: generic.cpp
+	$(CC) $(FLAGS) generic.cpp 
+
+
+clean:
+	rm -f $(OBJS) $(OUT)
+
+install: rpolcalc
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	cp $< $(DESTDIR)$(PREFIX)/bin/rpolcalc
+
+uninstall:
+	rm -f $(DESTDIR)$(PREFIX)/bin/rpolcalc
