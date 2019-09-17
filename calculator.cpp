@@ -17,10 +17,15 @@ const char* SINGLE_ARGUMENT_OPERATORS_HELP[] = {"a cos : return the cos (in radi
 
 void calculator::printHelp()
 {
-    std::cout << "Operators: \n\t    ";
+    std::cout << "Multiple Argument Operators:\n";
     for(int i =0; i< OPERATORS_LN;i++)
     {
-        std::printf("%s\t",OPERATORS[i]);
+        std::printf("%s\t%s\n",OPERATORS[i],OPERATORS_HELP[i]);
+    } 
+    std::printf("\nSingle Argument Opetators:\n");
+    for(int i =0; i< SINGLE_ARGUMENT_OPERATORS_LN;i++)
+    {
+        std::printf("%s\t%s\n",SINGLE_ARGUMENT_OPERATORS[i],SINGLE_ARGUMENT_OPERATORS_HELP[i]);
     }
 }
 void calculator::printOperatorHelp(char* c)
