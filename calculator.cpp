@@ -7,13 +7,71 @@
 #include "calculator.h"
 #include "generic.h"
 
+//
+const char* calculator::OPERATORS[] = {
+    "x",
+    "*",
+    "/",
+    "+",
+    "-",
+    "^",
+    "pow",
+    "nroot",
+    "atan2"
+};
+//Don't forget to update when adding functionnalities
+const int   calculator::OPERATORS_LN = 9;//should be built into a dictionnary
+//a list of the help messages for each operator at the same
+//index as the operator in OPERATORS[]
+//should be built into a dictionnary
+const char* calculator::OPERATORS_HELP[] = {
+    "a b x : times a by b",
+    "a b '*' : times a by b (note the usage of ' to prevent bash from evaluating *)",
+    "a b / : divides a by b, b != 0",
+    "a b + : adds a and b",
+    "a b - : substracts a from b",
+    "a b ^ : raises a to the power of b",
+    " a b pow : raises a to the power of b",
+    "a b nroot : returns the bth root of a",
+    "a b atan2 : returns θ between a ray starting at 0,0 passing through a,b and the X axis"
+};
 
-const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","nroot","atan2"};
-const int OPERATORS_LN = 9;//Don't forget to update when adding functionnalities
-const char* OPERATORS_HELP[] = {"a b x : times a by b","a b * : times a by b","a b / : divides a by b, b != 0","a b + : adds a and b", "a b - : substracts a from b","a b ^ : raises a to the power of b", " a b pow : raises a to the power of b","a b nroot : returns the bth root of a", "a b atan2 : returns θ between a ray starting at 0,0 passing through a,b and the X axis"};
-const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos","sin","tan","acos","asin","atan","cosh","sinh","tanh","acosh","asinh","atanh","exp"};
-const int SINGLE_ARGUMENT_OPERATORS_LN = 13;//Don't forget to update when adding functionnalities
-const char* SINGLE_ARGUMENT_OPERATORS_HELP[] = {"a cos : return the cos (in radian) of a","a sin : return the sin (in radian) of a","a tan : return the tan (in radian) of a","a acos : return the inverse of cos(a) (in radian)","a asin : return the inverse of sin(a) (in radian)","a atan : return the inverse of tan(a) (in radian)","a cosh : return the hyperbolic cosine of a (in radian)","a sinh : return the hyperbolic sine of a (in radian)","a tanh : return the hyperbolic tangeant of a (in radian)","a acosh : return the inverse of the hyperbolic cosine of a (in radian)","a asinh : return the inverse of the hyperbolic sine of a (in radian)","a atanh : return the inverse of the hyperbolic tangeant of a (in radian)","a exp : returns e^a"};
+//a list of all supported single argument operators see .cpp for declaration
+const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {
+    "cos",
+    "sin",
+    "tan",
+    "acos",
+    "asin",
+    "atan",
+    "cosh",
+    "sinh",
+    "tanh",
+    "acosh",
+    "asinh",
+    "atanh",
+    "exp"
+};
+//Don't forget to update when adding functionnalities
+const int calculator::SINGLE_ARGUMENT_OPERATORS_LN = 13;
+//a list of the help messages for each single argument operator
+//at the same index as the operator in SINGLE_ARGUMENT_OPERATORS[]
+//should really be built into a dictionnary
+const char* calculator::SINGLE_ARGUMENT_OPERATORS_HELP[] = {
+    "a cos : return the cos (in radian) of a",
+    "a sin : return the sin (in radian) of a",
+    "a tan : return the tan (in radian) of a",
+    "a acos : return the inverse of cos(a) (in radian)",
+    "a asin : return the inverse of sin(a) (in radian)",
+    "a atan : return the inverse of tan(a) (in radian)",
+    "a cosh : return the hyperbolic cosine of a (in radian)",
+    "a sinh : return the hyperbolic sine of a (in radian)",
+    "a tanh : return the hyperbolic tangeant of a (in radian)",
+    "a acosh : return the inverse of the hyperbolic cosine of a (in radian)",
+    "a asinh : return the inverse of the hyperbolic sine of a (in radian)",
+    "a atanh : return the inverse of the hyperbolic tangeant of a (in radian)",
+    "a exp : returns e^a"
+};
 
 void calculator::printHelp()
 {

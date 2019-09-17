@@ -5,7 +5,8 @@
 
 int main(int argc, char* argv[] )
 {    
-    
+    //essentially just wraps the calculator class 
+    //so that it can interract with a shell
     if(argc >2 && std::strcmp(argv[1],"help") ==0 )
     { 
         calculator::printOperatorHelp(argv[2]);
