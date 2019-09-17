@@ -10,7 +10,7 @@
 
 const char* calculator::OPERATORS[] = {"x","*","/","+","-","^","pow","nroot","atan2"};
 const int OPERATORS_LN = 9;//Don't forget to update when adding functionnalities
-const char* OPERATORS_HELP[] = {"a b x : times a by b","a b * : times a by b","a b / : divides a by b, b != 0","a b + : adds a and b", "a b - : substracts a from b","a b ^ : raises a to the power of b", " a b pow : raises a to the power of b","a b nroot : returns the bth root of a", "a b atan2 : returns θ between a ray starting at 0,0 and a,b\n|   *(a,b)\n|  / \n| /\\θ\n|/__\\__"};
+const char* OPERATORS_HELP[] = {"a b x : times a by b","a b * : times a by b","a b / : divides a by b, b != 0","a b + : adds a and b", "a b - : substracts a from b","a b ^ : raises a to the power of b", " a b pow : raises a to the power of b","a b nroot : returns the bth root of a", "a b atan2 : returns θ between a ray starting at 0,0 passing through a,b and the X axis"};
 const char* calculator::SINGLE_ARGUMENT_OPERATORS[] = {"cos","sin","tan","acos","asin","atan","cosh","sinh","tanh","acosh","asinh","atanh","exp"};
 const int SINGLE_ARGUMENT_OPERATORS_LN = 13;//Don't forget to update when adding functionnalities
 const char* SINGLE_ARGUMENT_OPERATORS_HELP[] = {"a cos : return the cos (in radian) of a","a sin : return the sin (in radian) of a","a tan : return the tan (in radian) of a","a acos : return the inverse of cos(a) (in radian)","a asin : return the inverse of sin(a) (in radian)","a atan : return the inverse of tan(a) (in radian)","a cosh : return the hyperbolic cosine of a (in radian)","a sinh : return the hyperbolic sine of a (in radian)","a tanh : return the hyperbolic tangeant of a (in radian)","a acosh : return the inverse of the hyperbolic cosine of a (in radian)","a asinh : return the inverse of the hyperbolic sine of a (in radian)","a atanh : return the inverse of the hyperbolic tangeant of a (in radian)","a exp : returns e^a"};
@@ -53,14 +53,7 @@ void calculator::printOperatorHelp(char* c)
         }
         else
         {
-            for(int i=0;i<OPERATORS_LN;i++)
-            {
-                printf("%s\n",OPERATORS[i]);
-            }
-            for(int i=0;i<SINGLE_ARGUMENT_OPERATORS_LN;i++)
-            {
-                printf("%s\n",SINGLE_ARGUMENT_OPERATORS[i]);
-            }
+            calculator::printHelp();
         }
     }
 }
@@ -72,21 +65,6 @@ bool calculator::isValidOperator(char* c,const char* ref[], const int ln)
         i++;
     }
     return (i < ln);
-}
-//-------TOO CONFUSING FOR NEW PLAYERS-----------­
-//takes a pointer to a stack and fills it with an 
-// element from an array if the function pointer 
-// returns true when supplied with said element
-//           and does it recursively
-template <typename T>
-void calculator::fillstacks(std::stack <T>* st,char* arguments[], int *numberOfArguments, bool (*function)(T))
-{
-    if(*function(arguments[*numberOfArguments]))
-    {
-        st->push(arguments[*numberOfArguments]);
-    }
-    *numberOfArguments--;
-    calculator::fillstacks(st,arguments,numberOfArguments,function);
 }
 
 bool calculator::isValidExpression(char* arguments[], int *numberOfArguments)
