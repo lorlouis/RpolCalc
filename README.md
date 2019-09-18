@@ -12,7 +12,7 @@ it can be used like so:
 or  
 `rpolcalc help *the operator you need help with*`  
 
-## Now you want to install?
+## Now you want to install it?
 **Great**  
 just type
 ```bash
