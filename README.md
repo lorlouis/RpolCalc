@@ -6,7 +6,7 @@ e.g.: 4 4 - cos -41 -
 which is the same as: cos(4-4)-(-41)
 
 ### You still need help?
-It's OK! the program contains an *help*ful keyword: **help**  
+It's OK! the program contains a *help*ful keyword: **help**  
 it can be used like so:  
 `rpolcalc help`  
 or  
