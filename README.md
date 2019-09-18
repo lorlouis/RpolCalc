@@ -22,3 +22,5 @@ cd RpolCalc
 make
 sudo make install
 ```
+if you are using an arch-based distro you can simply install this program from the AUR.  
+`yay -S rpolcalc-git`
