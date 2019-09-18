@@ -31,7 +31,7 @@ const char* calculator::OPERATORS_HELP[] = {
     "a b + : adds a and b",
     "a b - : substracts a from b",
     "a b ^ : raises a to the power of b",
-    " a b pow : raises a to the power of b",
+    "a b pow : raises a to the power of b",
     "a b nroot : returns the bth root of a",
     "a b atan2 : returns θ between a ray starting at 0,0 passing through a,b and the X axis"
 };
