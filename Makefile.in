@@ -4,10 +4,10 @@ HEADER	= calculator.h generic.h
 OUT	= rpolcalc
 CC	 = g++
 FLAGS	 = -g -c -Wall
-LFLAGS	 = -lm
+LFLAGS	 = -lm -z,relro,-z,now
 
 all: $(OBJS)
-	$(CC) -g -z,relro,-z,now $(OBJS) -o $(OUT) $(LFLAGS)
+	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS)
 
 main.o: main.cpp
 	$(CC) $(FLAGS) main.cpp 
