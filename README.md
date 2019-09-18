@@ -1,4 +1,4 @@
-# RpolCalc a powerfull reverse polish notation calculator
+# RpolCalc a powerful reverse polish notation calculator
 
 ## How do you use this?
 This calculator evaluates expressions written according to the postfix notation  
