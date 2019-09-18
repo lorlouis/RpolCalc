@@ -20,4 +20,5 @@ git clone https://github.com/lorlouis/RpolCalc.git
 cd RpolCalc
 ./configure
 make
-sudo make install```
+sudo make install
+```
