@@ -15,8 +15,9 @@ or
 ## Now you want to install?
 **Great**  
 just type
-`git clone https://github.com/lorlouis/RpolCalc.git
+```bash
+git clone https://github.com/lorlouis/RpolCalc.git
 cd RpolCalc
 ./configure
 make
-sudo make install`
+sudo make install```
