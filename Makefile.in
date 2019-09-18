@@ -5,7 +5,6 @@ OUT	= rpolcalc
 CC	 = g++
 FLAGS	 = -g -c -Wall
 LFLAGS	 = -lm
-PREFIX = /usr/local
 
 all: $(OBJS)
 	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS)
