@@ -7,7 +7,7 @@
 #include "calculator.h"
 #include "generic.h"
 
-//
+//a list of all supported operators see .cpp for declaration
 const char* calculator::OPERATORS[] = {
     "x",
     "*",
@@ -85,6 +85,9 @@ void calculator::printHelp()
     {
         std::printf("%s\t%s\n",SINGLE_ARGUMENT_OPERATORS[i],SINGLE_ARGUMENT_OPERATORS_HELP[i]);
     }
+
+    std::printf("If you find a bug you can fix it or report it at:\nhttps://github.com/lorlouis/RpolCalc\n");
+
 }
 void calculator::printOperatorHelp(char* c)
 {
