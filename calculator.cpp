@@ -349,6 +349,5 @@ double calculator::compute(char* arguments[],int *numberOfArguments)
             bufferStack.pop();
         }
     }
-    return 0;
-    //throw std::runtime_error("Syntax error"); 
+    throw std::runtime_error("Syntax error"); 
 }
