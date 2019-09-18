@@ -3,9 +3,8 @@ SOURCE	= main.cpp calculator.cpp generic.cpp
 HEADER	= calculator.h generic.h
 OUT	= rpolcalc
 CC	 = g++
-FLAGS	 = -g -c -Wall
-LFLAGS	 = -lm -z,relro,-z,now
-
+FLAGS	 = -g -Wl,-z,relro,-z,now -c -Wall
+LFLAGS	 = -lm
 all: $(OBJS)
 	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS)
 
