@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <iterator>
 #include "calculator.h"
 #include "generic.h"
 
@@ -17,7 +18,16 @@ int main(int argc, char* argv[] )
     }
     else
     {
-        std::printf("%f\n",calculator::compute(argv,&argc));
+        try
+        {
+            std::printf("%f\n",calculator::compute(argv,&argc));
+        }
+        catch (...)
+        {
+            std::cout << ("\033[0;31mAn error occured when evaluating:\033[0m\n\t");
+            std::copy(argv+1, argv+argc, std::ostream_iterator<const char*>(std::cout, " "));
+            std::cout << "\n";
+        }
     }
     return 0;
 }

@@ -7,7 +7,7 @@ bool generic::isNumber(char* s)
     std::string str(s);
     try
     {
-        double i = std::stod(str);
+        std::stod(str);
     }
     catch(std::invalid_argument e)
     {
